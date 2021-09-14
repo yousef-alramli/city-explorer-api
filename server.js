@@ -14,15 +14,12 @@ app.get('/weatherData', (req, res) => {
     let lon = Number(amman.lon);
     let latQuery = req.query.lat;
     let lonQuery = req.query.lon;
-
+    let searchQuery=req.query.searchQuery.toLowerCase();
     
-
     let city = weatherData.find(item =>{
-       return latQuery == item.lat && lonQuery == item.lon;
+       return latQuery == item.lat && lonQuery == item.lon && item.city_name.toLowerCase()==searchQuery;
 
-    })
-console.log();
-   
+    })   
 let foreCast= city.data.map(info=>{
     return{
         date:info.valid_date ,
@@ -33,7 +30,6 @@ res.status(200).send(foreCast);
 });
 
 app.listen(PORT, () => {
-    console.log(`hello warld ${PORT}`);
 });
 
 
